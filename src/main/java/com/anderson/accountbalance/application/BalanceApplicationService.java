@@ -6,6 +6,8 @@ import com.anderson.accountbalance.sdk.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class BalanceApplicationService {
 
@@ -17,41 +19,23 @@ public class BalanceApplicationService {
     }
 
     /**
-     * UseCase: consultar saldo
+     * UseCase: atualizar saldo
      */
-    public Notification<Balance> getBalance(Long accountId) {
-        var notification = new Notification<Balance>();
+    public Notification<BalanceResponseDTO> updateBalance(Long accountId, Balance balanceCommand) {
+        var notification = new Notification<BalanceResponseDTO>();
 
-        var balance = balanceRepository.findById(accountId).orElse(null);
-        if (balance == null) {
-            notification.addError("Balance not found for account");
+        var balanceDB = balanceRepository.findById(accountId).orElse(null);
+        if (balanceDB == null) {
+            notification.addError("Saldo não encontrado para esta conta");
             return notification;
         }
 
-        //TODO: converter
-        notification.setResult(balance);
+        balanceDB.setAvailable(balanceCommand.getAvailable());
+        balanceDB.setBlocked(balanceCommand.getBlocked());
+
+        balanceRepository.save(balanceDB);
+
+        notification.setResult(BalanceResponseDTO.from(Optional.ofNullable(balanceDB)));
         return notification;
     }
-
-    /**
-     * UseCase: atualizar saldo
-     */
-//    public Notification<Void> updateBalance(Long accountId, Balance balanceCommand) {
-//        var notification = new Notification<Void>();
-//
-//        var balanceDB = balanceRepository.findById(accountId).orElse(null);
-//        if (balanceDB == null) {
-//            notification.addError("Balance not found for account");
-//            return notification;
-//        }
-//
-//        balanceDB.setAvailable(balanceCommand.getAvailable());
-//        balanceDB.setAmount(balanceCommand.getAmount());
-//
-//        balanceRepository.save(balanceDB);
-//
-//        //TODO: converter
-//        notification.setResult(null);
-//        return notification;
-//    }
 }

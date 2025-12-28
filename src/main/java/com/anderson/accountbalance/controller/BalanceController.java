@@ -20,17 +20,17 @@ public class BalanceController {
         this.balanceService = balanceService;
     }
 
-//    @PutMapping("/{accountId}")
-//    public ResponseEntity<Void> updateBalance(
-//            @PathVariable Long accountId,
-//            @RequestBody Balance request
-//    ) {
-//        var notification = balanceService.updateBalance(accountId, request);
-//
-//        if (notification.getResult() == null) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-//        }
-//
-//        return ResponseEntity.noContent().build();
-//    }
+    @PutMapping("/{accountId}")
+    public ResponseEntity<?> updateBalance(
+            @PathVariable Long accountId,
+            @RequestBody Balance request
+    ) {
+        var notification = balanceService.updateBalance(accountId, request);
+
+        if (notification.getResult() == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        return ResponseEntity.noContent().build();
+    }
 }

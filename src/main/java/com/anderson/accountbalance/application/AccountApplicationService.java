@@ -91,7 +91,7 @@ public class AccountApplicationService {
 
         var result = accounts.stream()
                 .map(account -> {
-                    var balance = balanceRepository.findById(account.getAccountId()); // Retorna Optional
+                    var balance = balanceRepository.findById(account.getAccountId());
                     return AccountResponseDTO.from(account, balance);
                 })
                 .toList();
