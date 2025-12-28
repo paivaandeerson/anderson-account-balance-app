@@ -26,7 +26,7 @@ public class BalanceApplicationService {
 
         var balanceDB = balanceRepository.findById(accountId).orElse(null);
         if (balanceDB == null) {
-            notification.addError("Saldo não encontrado para esta conta");
+            notification.addError("Conta não encontrada para atualização de saldo");
             return notification;
         }
 

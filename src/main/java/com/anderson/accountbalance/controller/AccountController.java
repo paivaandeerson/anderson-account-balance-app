@@ -28,7 +28,9 @@ public class AccountController {
         var notification = accountService.createAccount(request);
 
         if (notification.hasErrors()) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body(notification.getErrors());
         }
 
         return ResponseEntity
@@ -38,13 +40,7 @@ public class AccountController {
 
     @GetMapping("/")
     public ResponseEntity<?> getAccounts() {
-
         var notification = accountService.getAllAccounts();
-
-        if (notification.getResult() == null || notification.getResult().isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-
         return ResponseEntity.ok(notification.getResult());
     }
 
@@ -55,7 +51,9 @@ public class AccountController {
         var notification = accountService.getAccount(accountId);
 
         if (notification.getResult() == null) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(notification.getErrors());
         }
 
         return ResponseEntity.ok(notification.getResult());

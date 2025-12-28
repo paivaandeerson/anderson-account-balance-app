@@ -28,7 +28,9 @@ public class BalanceController {
         var notification = balanceService.updateBalance(accountId, request);
 
         if (notification.getResult() == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity
+                    .status(HttpStatus.NOT_FOUND)
+                    .body(notification.getErrors());
         }
 
         return ResponseEntity.noContent().build();

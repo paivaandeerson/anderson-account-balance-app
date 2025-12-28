@@ -40,13 +40,12 @@ public class AccountApplicationService {
         if (accountCommand.getType() == null ||
                 (!contaCorrente.equals(accountCommand.getType()) && !contaPoupanca.equals(accountCommand.getType()))) {
             notification.addError("Tipo de conta inválido, valores válidos ("+ contaCorrente +","+ contaPoupanca +")");
-            notification.setResult(AccountResponseDTO.from(accountCommand,null));
+            notification.setResult(AccountResponseDTO.from(accountCommand,Optional.empty()));
             return notification;
         }
 
         accountCommand.setCreated(OffsetDateTime.now());
         var savedAccount = accountRepository.save(accountCommand);
-
 
         var savedBalance = new Balance();
         savedBalance.setAccountId(savedAccount.getAccountId());

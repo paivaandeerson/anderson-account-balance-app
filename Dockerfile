@@ -1,16 +1,16 @@
-# Use a imagem oficial do Amazon Corretto 21 para compilar o projeto
-FROM amazoncorretto:21 AS build
+# 1. Usamos uma imagem leve apenas com o JRE (ambiente de execução)
+FROM amazoncorretto:21-al2023-headless
 
-# Instalar tar e gzip
-RUN yum install -y tar gzip
-
+# 2. Definimos a pasta de trabalho dentro do container
 WORKDIR /app
-COPY . .
-RUN ./mvnw clean package -DskipTests
 
-# Use a imagem oficial do Amazon Corretto 21 para rodar o projeto
-FROM amazoncorretto:21
-WORKDIR /app
-COPY --from=build /app/target/account-balance-0.0.1-SNAPSHOT.jar account-balance.jar
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "account-balance.jar"]
+# 3. Copiamos o JAR que VOCÊ gerou com o comando ./mvnw clean package
+# O asterisco (*) garante que ele pegue o arquivo mesmo que a versão mude
+COPY target/*.jar app.jar
+
+# 4. Expomos a porta da API
+EXPOSE 8081
+
+# 5. Comando para iniciar a aplicação
+# Adicionamos parâmetros de otimização para containers
+ENTRYPOINT ["java", "-jar", "-Djava.security.egd=file:/dev/./urandom", "app.jar"]
