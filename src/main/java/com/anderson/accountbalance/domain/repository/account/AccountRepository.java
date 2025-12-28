@@ -1,6 +1,4 @@
-package com.anderson.accountbalance.domain.repository;
-
-import java.util.Optional;
+package com.anderson.accountbalance.domain.repository.account;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

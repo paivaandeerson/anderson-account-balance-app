@@ -1,7 +1,7 @@
 package com.anderson.accountbalance.application;
 
 import com.anderson.accountbalance.domain.model.*;
-import com.anderson.accountbalance.domain.repository.BalanceRepository;
+import com.anderson.accountbalance.domain.repository.balance.BalanceRepository;
 import com.anderson.accountbalance.sdk.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,23 +36,22 @@ public class BalanceApplicationService {
     /**
      * UseCase: atualizar saldo
      */
-    public Notification<Void> updateBalance(Long accountId, Balance balance) {
-        var notification = new Notification<Void>();
-
-        var balanceDB = balanceRepository.findById(accountId).orElse(null);
-        if (balanceDB == null) {
-            notification.addError("Balance not found for account");
-            return notification;
-        }
-
-        balanceDB.setAvailable(available);
-        balanceDB.setBlocked(blocked);
-        balanceDB.setTotal(available + blocked);
-
-        balanceRepository.save(balanceDB);
-        
-        //TODO: converter
-        notification.setResult(null);
-        return notification;
-    }
+//    public Notification<Void> updateBalance(Long accountId, Balance balanceCommand) {
+//        var notification = new Notification<Void>();
+//
+//        var balanceDB = balanceRepository.findById(accountId).orElse(null);
+//        if (balanceDB == null) {
+//            notification.addError("Balance not found for account");
+//            return notification;
+//        }
+//
+//        balanceDB.setAvailable(balanceCommand.getAvailable());
+//        balanceDB.setAmount(balanceCommand.getAmount());
+//
+//        balanceRepository.save(balanceDB);
+//
+//        //TODO: converter
+//        notification.setResult(null);
+//        return notification;
+//    }
 }

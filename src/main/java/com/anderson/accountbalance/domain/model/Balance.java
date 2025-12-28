@@ -5,7 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.util.UUID;
+
+import java.math.BigDecimal;
 
 @Entity
 @Getter
@@ -18,9 +19,9 @@ public class Balance {
     @Column(name="`accountId`")
     private Long accountId;
 
-    @Column(nullable = false)
-    private BigDecimal amount;
+    @Column(name="`available`")
+    private BigDecimal available;
 
     @Column(name="`blocked`")
-    private int available;
+    private BigDecimal blocked;
 }

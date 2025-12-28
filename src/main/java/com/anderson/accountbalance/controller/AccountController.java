@@ -6,13 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.anderson.accountbalance.application.AccountApplicationService;
-import com.anderson.accountbalance.sdk.Notification;
-
-import java.util.UUID;
 
 import com.anderson.accountbalance.domain.model.Account;
-import com.anderson.accountbalance.domain.model.AccountResponseDTO;
-import com.anderson.accountbalance.domain.repository.AccountRepository;
 
 
 @RestController
@@ -40,30 +35,30 @@ public class AccountController {
                 .status(HttpStatus.CREATED)
                 .body(notification.getResult());
     }
-
-    @GetMapping
-    public ResponseEntity<?> getAccounts() {
-
-        var notification = accountService.getAllAccounts();
-
-        if (notification.getResult() == null || notification.getResult().isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-
-        return ResponseEntity.ok(notification.getResult());
-    }
-
-    @GetMapping("/{accountId}")
-    public ResponseEntity<?> getAccountById(
-            @PathVariable Long accountId
-    ) {
-        var notification = accountService.getAccount(accountId);
-
-        if (notification.getResult() == null) {
-            return ResponseEntity.notFound().build();
-        }
-
-        return ResponseEntity.ok(notification.getResult());
-    }
+//
+//    @GetMapping
+//    public ResponseEntity<?> getAccounts() {
+//
+//        var notification = accountService.getAllAccounts();
+//
+//        if (notification.getResult() == null || notification.getResult().isEmpty()) {
+//            return ResponseEntity.noContent().build();
+//        }
+//
+//        return ResponseEntity.ok(notification.getResult());
+//    }
+//
+//    @GetMapping("/{accountId}")
+//    public ResponseEntity<?> getAccountById(
+//            @PathVariable Long accountId
+//    ) {
+//        var notification = accountService.getAccount(accountId);
+//
+//        if (notification.getResult() == null) {
+//            return ResponseEntity.notFound().build();
+//        }
+//
+//        return ResponseEntity.ok(notification.getResult());
+//    }
 }
 

@@ -1,26 +1,23 @@
 package com.anderson.accountbalance.domain.model;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import java.util.List;
+import java.time.OffsetDateTime;
+import java.util.Optional;
 
 public record AccountResponseDTO(
-    Long id,
+    Long accountId,
     String name,
-    String type,
-    int available,
-    int total
+    OffsetDateTime created,
+    boolean active,
+    BalanceResponseDTO balance
 ) {
-    public static AccountResponseDTO from(Account account, Balance balance) {
+    public static AccountResponseDTO from(Account account, Optional<Balance> balance) {
         return new AccountResponseDTO(
-            account.getId(),
-            account.getName(),
-            account.getType(),
-            balance.getAvailable()
+                account.getAccountId(),
+                "Conta : "+account.getType()+"-"+account.getAccountId(),
+                account.getCreated(),
+                account.isActive(),
+                BalanceResponseDTO.from(balance)
         );
     }
 }

@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.ZonedDateTime;
+import java.time.OffsetDateTime;
 
 @Entity
 @Getter
@@ -17,16 +17,13 @@ import java.time.ZonedDateTime;
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long uuid;
-
-    @Column(name="name")
-    private String name;
+    private Long accountId;
 
     @Column(name="type")
     private String type;
 
     @Column(name="created")
-    private ZonedDateTime created;
+    private OffsetDateTime created;
     
     @Column(nullable = false)
     private boolean active = true;

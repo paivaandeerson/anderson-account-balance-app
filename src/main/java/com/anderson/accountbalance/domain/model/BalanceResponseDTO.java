@@ -1,18 +1,33 @@
 package com.anderson.accountbalance.domain.model;
 
+import java.math.BigDecimal;
+import java.util.Optional;
+
 public record BalanceResponseDTO(
-    int available,
-    int blocked,
-    int total
+        BigDecimal available,
+        BigDecimal blocked,
+        BigDecimal total
 ) {
     public static BalanceResponseDTO from(
-        int available,
-        int blocked
+            BigDecimal available,
+            BigDecimal blocked
     ) {
         return new BalanceResponseDTO(
-            available,
-            blocked,
-            available + blocked
+                available,
+                blocked,
+                available.add(blocked)
+        );
+    }
+    public static BalanceResponseDTO from(
+            Optional<Balance> balance
+    ) {
+
+        if (balance.isEmpty())
+            return null;
+
+        return BalanceResponseDTO.from(
+                balance.get().getAvailable(),
+                balance.get().getBlocked()
         );
     }
 }
