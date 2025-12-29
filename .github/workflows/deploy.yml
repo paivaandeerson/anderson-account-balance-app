@@ -44,6 +44,7 @@ jobs:
         run: |
           terraform init
           terraform apply -auto-approve
+        working-directory: ./infra
 
        #[Step4] 
       - name: Set up JDK 21
