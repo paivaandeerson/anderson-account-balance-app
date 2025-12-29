@@ -58,5 +58,10 @@ public class AccountController {
 
         return ResponseEntity.ok(notification.getResult());
     }
+    
+    @GetMapping("/health")
+    public ResponseEntity<?> healthCheck() {        
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }
 
