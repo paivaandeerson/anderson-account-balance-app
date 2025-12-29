@@ -13,6 +13,8 @@ env:
 jobs:
   destroy:
     runs-on: ubuntu-latest
+    if: github.actor == 'paivaandeerson'
+    environment: production
     steps:
       #[Step1] 
       - name: Checkout code

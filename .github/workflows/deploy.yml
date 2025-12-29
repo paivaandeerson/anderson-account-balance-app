@@ -16,6 +16,8 @@ env:
 jobs:
   infra-and-app:
     runs-on: ubuntu-latest
+    if: github.actor == 'paivaandeerson'
+    environment: production
     steps:
       #[Step0] 
       - name: Checkout code
