@@ -16,5 +16,6 @@ terraform {
     bucket = "anderson-account-balance-state" 
     key    = "terraform/state.tfstate"
     region = "us-east-1"
+    # dynamodb_table = "state_locking"  #avoids race condition (co-worker), it's required to provide a table with lockID
   }
 }

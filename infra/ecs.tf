@@ -39,6 +39,6 @@ resource "aws_ecs_service" "main" {
   network_configuration {
     subnets          = [aws_subnet.public.id]
     security_groups  = [aws_security_group.ecs_sg.id]
-    assign_public_ip = true # Obrigatório se estiver em subnet pública sem NAT
+    assign_public_ip = true # Obrigatório se estiver em subnet pública sem NAT, ALB nao provisionado
   }
 }

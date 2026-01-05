@@ -5,7 +5,7 @@ resource "aws_vpc" "main" {
 resource "aws_subnet" "public" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = "10.0.1.0/24"
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = true # ALB not provisioned
 }
 
 resource "aws_internet_gateway" "igw" {
@@ -36,7 +36,7 @@ resource "aws_security_group" "ecs_sg" {
   egress {
     from_port   = 0
     to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    protocol    = "-1" #ignore ports
+    cidr_blocks = ["0.0.0.0/0"] #to download ECR Images, cloudwatch logs, (external DB)
   }
 }
